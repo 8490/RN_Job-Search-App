@@ -1,6 +1,6 @@
 import React from 'react';
 import {SafeAreaView, View, Text, ScrollView} from 'react-native';
-
+import {introduction} from '../styles';
 import {TopicItem} from '../components';
 
 const topics = [
@@ -52,22 +52,20 @@ const topics = [
 ];
 
 const Introduction = (props) => {
-  return (
-    <SafeAreaView style={{flex: 1}}>
-      <View style={{flex: 1}}>
+  function selectLanguage(lang) {
+    props.navigation.navigate('Jobs', {selectedLanguage: lang});
+  }
 
-        <View>
-          <Text>Select the Language you are looking for...</Text>
+  return (
+    <SafeAreaView style={{flex: 1, backgroundColor: '#eceff1'}}>
+      <View style={{flex: 1}}>
+        <View style={introduction.banner}>
+          <Text style={introduction.bannerText}>Aradığınız dili seçin</Text>
         </View>
 
-        <ScrollView
-          horizontal
-          contentContainerStyle={{ alignItems: "center"}}
-        >
-
-          
+        <ScrollView horizontal contentContainerStyle={{alignItems: 'center'}}>
           {topics.map((t) => {
-            return <TopicItem key={t.id} item={t} />;
+            return <TopicItem key={t.id} item={t} onSelect={() => selectLanguage(t.name)} />;
           })}
         </ScrollView>
       </View>
